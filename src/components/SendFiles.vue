@@ -9,7 +9,7 @@ export default {
   name: 'SendFile',
   methods: {
     sendFiles() {
-      this.$store.dispatch(CONSTANTS.SEND_FILES);
+      this.$store.dispatch(CONSTANTS.REMOVE_STAGING_FILES);
     }
   }
 };

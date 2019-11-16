@@ -1,16 +1,18 @@
 <template>
   <div id="app">
+    <navbar />
     <container msg="Welcome to Your Vue.js App" />
   </div>
 </template>
 
 <script>
-import Container from './components/Container.vue';
-
+import Container from '@components/Container';
+import Navbar from '@components/Navbar';
 export default {
   name: 'app',
   components: {
-    Container
+    Container,
+    Navbar
   }
 };
 </script>
@@ -23,6 +25,8 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+  height: calc(100vh - 60px);
+  width: 100vw;
 }
 body {
   background-color: #dadad2;

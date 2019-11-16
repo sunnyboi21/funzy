@@ -1,22 +1,21 @@
 <template>
-  <div class="hello">
+  <b-container>
     <file-upload />
-    <send-files />
-    <staging-files />
-  </div>
+    <query-table />
+  </b-container>
 </template>
 
 <script>
 import FileUpload from '@components/FileUpload';
 import SendFiles from '@components/SendFiles'
-import StagingFiles from '@components/StagingFiles';
+import QueryTable from '@components/QueryTable';
 
 export default {
   name: 'Container',
   components: {
     FileUpload,
     SendFiles,
-    StagingFiles
+    QueryTable
   }
 };
 </script>
