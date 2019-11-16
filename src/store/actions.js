@@ -12,7 +12,7 @@ export default {
     }
     axios({
       method: 'POST',
-      url: 'http://localhost:5000/sendFile',
+      url: 'http://localhost:5000/sendfile',
       headers: {
         'Content-Type': 'application/json'
       },
