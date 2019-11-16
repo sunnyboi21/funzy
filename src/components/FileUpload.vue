@@ -1,24 +1,29 @@
 <template>
-  <div
+  <b-row
     id="drag-target-box"
-    class="row dz-clickable"
+    class="row dz-clickable d-flex"
     data-max-file-size="1"
     data-max-file-count="20"
     data-token="PMTcbufz5ggLQkXVZKG1lvMw5CNxTGLsKiJ5258Z"
-    style="width: 500px;height: 100px;"
   >
-    <div
+    <b-col
       id="drag-target"
-      class="col-lg-8 col-md-8 col-sm-8 col-xs-8"
-      @drop.prevent="addFile" @dragover.prevent
-    >Drag &amp; drop images anywhere</div>
+      class   
+      cols="8"
+      @drop.prevent="addFile"
+      @dragover.prevent
+    >
+    Drag &amp; drop HERE
+    </b-col>
     <!-- /#drag-target -->
-    <div id="click-target" class="col-lg-4 col-md-4 col-sm-4 col-xs-4">or click here</div>
+    <b-col variant="danger">Button</b-col>
     <!-- /#file-button -->
-  </div>
+  </b-row>
 </template>
 
 <script>
+import * as CONSTANTS from '@store/constants';
+
 export default {
   name: 'FileUpload',
   data: () => ({
@@ -29,11 +34,13 @@ export default {
       console.log(e);
       console.log('ADD FILE');
       let droppedFiles = e.dataTransfer.files;
-      if(!droppedFiles) return;
+      if (!droppedFiles) return;
       // this tip, convert FileList to array, credit: https://www.smashingmagazine.com/2018/01/drag-drop-file-uploader-vanilla-js/
-      ([...droppedFiles]).forEach(f => {
+      [...droppedFiles].forEach(f => {
         console.log('FILE UPLOADED');
+        console.log(f);
         this.files.push(f);
+        this.$store.dispatch(CONSTANTS.ADD_FILE, f);
       });
     }
   }
@@ -43,19 +50,19 @@ export default {
 <style>
 @media (max-width: 1200px) {
   #drag-target {
-      padding: 0 35px;
+    padding: 0 35px;
   }
 }
 #drag-target {
-    color: #91917d;
-    padding: 0 55px;
-    border-radius: 6px 0 0 6px;
+  color: #91917d;
+  padding: 0 55px;
+  border-radius: 6px 0 0 6px;
 }
 #drag-target-box,
 #fallback-form {
   border: 3px dashed #91917d;
   cursor: pointer;
-  font-size: 21px;
+  font-size: 19px;
   font-weight: 700;
   line-height: 76px;
   margin-top: 35px;
@@ -66,10 +73,10 @@ export default {
 }
 
 #click-target {
-    background: #91917d;
-    border: none;
-    color: #fff;
-    padding: 0 32px;
-    border-radius: 0 6px 6px 0;
+  background: #91917d;
+  border: none;
+  color: #fff;
+  padding: 0 32px;
+  border-radius: 0 6px 6px 0;
 }
 </style>

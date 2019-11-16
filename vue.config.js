@@ -26,8 +26,6 @@ module.exports = {
   // https://vuejs.org/v2/guide/installation.html#Runtime-Compiler-vs-Runtime-only
   runtimeCompiler: true,
 
-  transpileDependencies: ['allura', 'metrics-logger-vue'],
-
   // tweak internal webpack configuration.
   // see https://github.com/vuejs/vue-cli/blob/dev/docs/webpack.md
   chainWebpack: () => {},
@@ -39,7 +37,8 @@ module.exports = {
         '@src': resolveSrc('src'),
         '@components': resolveSrc('src/components'),
         '@assets': resolveSrc('src/assets'),
-        '@state': resolveSrc('src/state')
+        '@state': resolveSrc('src/state'),
+        '@store': resolveSrc('src/store')
       }
     },
     plugins: [],
@@ -69,36 +68,6 @@ module.exports = {
     // This option does not affect *.vue files.
     modules: false
   }
-
-  // use thread-loader for babel & TS in production build
-  // enabled by default if the machine has more than 1 cores
-  // parallel: require('os').cpus().length > 1,
-
-  // split vendors using autoDLLPlugin?
-  // can also be an explicit Array of dependencies to include in the DLL chunk.
-  // See https://github.com/vuejs/vue-cli/blob/dev/docs/cli-service.md#dll-mode
-  // dll: false,
-
-  // options for the PWA plugin.
-  // see https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-pwa
-  // pwa: {},
-
-  // configure webpack-dev-server behavior
-  // devServer: {
-  //   open: process.platform === 'darwin',
-  //   host: '0.0.0.0',
-  //   port: 8080,
-  //   https: false,
-  //   hotOnly: false,
-  //   // See https://github.com/vuejs/vue-cli/blob/dev/docs/cli-service.md#configuring-proxy
-  //   proxy: null, // string | Object
-  //   before: app => {}
-  // },
-
-  // options for 3rd party plugins
-  // pluginOptions: {
-
-  // }
 };
 function resolveSrc(_path) {
   return path.resolve(__dirname, _path);

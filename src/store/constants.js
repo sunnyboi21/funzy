@@ -1,0 +1,7 @@
+export const ADD_FILE = 'ADD_FILE';
+
+export const SEND_FILES = 'SEND_FILES';
+export const CLEAR_STAGING_FILES = 'CLEAR_STAGING_FILES';
+
+// GETTERS
+export const GET_STAGING_FILES = 'GET_STAGING_FILES';
