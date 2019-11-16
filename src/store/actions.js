@@ -5,7 +5,7 @@ export default {
   [CONSTANTS.ADD_FILE]({ commit }, file) {
     commit(CONSTANTS.ADD_FILE, file);
   },
-  [CONSTANTS.SEND_FILES]({ state, commit }, file) {
+  [CONSTANTS.SEND_FILES]({ state, commit }) {
     const formData = new FormData();
     for (let i = 0; i < state.stagingFiles.length; i++) {
       formData.append('file2upload', state.stagingFiles[i]);
