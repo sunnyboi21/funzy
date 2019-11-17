@@ -1,25 +1,37 @@
 <template>
   <div>
     <b-row>
-      <h1>Staging Files</h1>
+      <h2>Staging Files</h2>
     </b-row>
     <b-row>
-      <b-table class="text-left" hover :items="stagingFiles" :fields="fields" selectable>
-      </b-table>
+      <b-col cols="8">
+        <b-table
+          class="text-left"
+          :items="stagingFiles"
+          :fields="fields"
+          selectable
+          responsive
+          @row-selected="onRowSelected"
+        ></b-table>
+      </b-col>
+      <b-col>
+        <meta-data />
+      </b-col>
     </b-row>
   </div>
 </template>
 
 <script>
 import * as CONSTANTS from '@store/constants';
+import MetaData from '@components/MetaData';
 
 export default {
   name: 'StagingFiles',
+  components: {
+    MetaData
+  },
   data: () => ({
-    fields: [
-      '#',
-      'name'
-    ]
+    fields: ['#', 'name']
   }),
   computed: {
     stagingFiles() {
@@ -37,6 +49,12 @@ export default {
   methods: {
     sendFiles() {
       this.$store.dispatch(CONSTANTS.SEND_FILES);
+    },
+    onRowSelected(rows) {
+      this.$emit(
+        'staged-files-selected',
+        rows.map(record => record.name)
+      );
     }
   }
 };

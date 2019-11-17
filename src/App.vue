@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <navbar />
-    <container msg="Welcome to Your Vue.js App" />
+    <container />
   </div>
 </template>
 

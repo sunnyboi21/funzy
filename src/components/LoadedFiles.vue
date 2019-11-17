@@ -1,28 +1,18 @@
 <template>
   <div>
     <b-row>
-      <h1>Loaded Files</h1>
+      <h2>Loaded Files</h2>
     </b-row>
     <b-row>
       <b-col cols="8">
-        <b-table class="text-left"
+        <b-table
+          class="text-left"
           :items="loadedFiles"
           :fields="fields"
           selectable
+          responsive
           @row-selected="onRowSelected"
-        >
-          <template v-slot:cell(actions)="row">
-            <b-button size="sm" @click="info(row.item, row.index, $event.target)" class="mr-1">
-              Info modal
-            </b-button>
-            <b-button size="sm">
-              {{ row.detailsShowing ? 'Hide' : 'Show' }} Details
-            </b-button>
-          </template>
-        </b-table>
-      </b-col>
-      <b-col class="d-flex flex-column-reverse justify-content-center flex-grow-0 mt-5">
-        <b-button size="sm" :disabled="!rowsSelected.length" @click="moveToStaging">></b-button>  
+        ></b-table>
       </b-col>
     </b-row>
   </div>
@@ -34,11 +24,7 @@ import * as CONSTANTS from '@store/constants';
 export default {
   name: 'LoadedFiles',
   data: () => ({
-    fields: [
-      '#',
-      'name'
-    ],
-    rowsSelected: []
+    fields: ['#', 'name']
   }),
   computed: {
     loadedFiles() {
@@ -62,14 +48,10 @@ export default {
       this.$store.dispatch(CONSTANTS.SEND_FILES);
     },
     onRowSelected(rows) {
-      console.log(rows);
-      this.rowsSelected = rows.map(record => record.name);
-    },
-    moveToStaging() {
-      console.log('moveToStaging')
-      if (this.rowsSelected.length) {
-        this.$store.dispatch(CONSTANTS.MOVE_FILES_TO_STAGING, this.rowsSelected);
-      }
+      this.$emit(
+        'loaded-files-selected',
+        rows.map(record => record.name)
+      );
     }
   }
 };

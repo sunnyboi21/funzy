@@ -14,6 +14,9 @@ export default {
   [CONSTANTS.REMOVE_FILE]({ commit, fileName }) {
     commit(CONSTANTS.REMOVE_FILE, fileName);
   },
+  [CONSTANTS.REMOVE_FILES_FROM_STAGING]({ commit }, fileNames) {
+    commit(CONSTANTS.REMOVE_FILES_FROM_STAGING, fileNames);
+  },
   [CONSTANTS.SEND_FILES]({ state, commit }, metadata) {
     const formData = new FormData();
     for (let i = 0; i < state.stagingFiles.length; i++) {
