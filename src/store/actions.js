@@ -24,10 +24,6 @@ export default {
       const fileIndex = state.loadedFiles.findIndex(file => file.name === state.stagingFiles[i]);
       if (fileIndex > -1) {
         formData.append('file2upload', state.loadedFiles[fileIndex]);
-        commit(CONSTANTS.ADD_FILE_TO_QUEUE, {
-          name: state.stagingFiles[i],
-          ...metadata
-        });
       }
     }
     Object.keys(metadata).forEach(key => {
@@ -42,11 +38,27 @@ export default {
       data: formData
     })
       .then(result => {
-        commit(CONSTANTS.CLEAR_LOADED_FILES);
+        commit(CONSTANTS.MOVE_STAGING_TO_QUEUE, {
+          timestamp: Date.now()
+        });
+        commit(CONSTANTS.REMOVE_STAGING_FILES);
         console.log(result);
       })
       .finally(() => {
+        commit(CONSTANTS.MOVE_STAGING_TO_QUEUE, {
+          timestamp: Date.now()
+        });
+        commit(CONSTANTS.REMOVE_STAGING_FILES);
         commit(CONSTANTS.SET_LOADING, false);
       });
+  },
+  [CONSTANTS.CHECK_QUEUE]({ commit }) {
+    axios({
+      method: 'GET',
+      url: 'http://localhost:5000/checkqueue'
+    }).then(filesInQueue => {
+      console.log(filesInQueue);
+      commit(CONSTANTS.CHECK_QUEUE, filesInQueue);
+    });
   }
 };

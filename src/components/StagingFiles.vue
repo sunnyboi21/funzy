@@ -6,7 +6,9 @@
     <b-row>
       <b-col cols="8">
         <b-table
-          class="text-left"
+          sticky-header
+          style="max-height: 500px;"
+          class="text-left h-100"
           :items="stagingFiles"
           :fields="fields"
           selectable
@@ -36,10 +38,11 @@ export default {
   computed: {
     stagingFiles() {
       const files = [];
-      const loadedFiles = this.$store.getters[CONSTANTS.GET_STAGING_FILES];
-      loadedFiles.forEach((name, index) => {
+      const stagedFiles = this.$store.getters[CONSTANTS.GET_STAGING_FILES];
+      let count = 1;
+      stagedFiles.forEach(name => {
         files.push({
-          '#': index + 1,
+          '#': count++,
           name
         });
       });

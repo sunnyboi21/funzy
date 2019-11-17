@@ -20,6 +20,14 @@ export default {
       }
     });
   },
+  [CONSTANTS.MOVE_STAGING_TO_QUEUE](state, metadata) {
+    state.stagingFiles.forEach(name => {
+      state.filesInQueue.push({
+        name,
+        ...metadata
+      });
+    });
+  },
   [CONSTANTS.CLEAR_LOADED_FILES](state) {
     state.stagingFiles = [];
     state.loadedFiles = [];

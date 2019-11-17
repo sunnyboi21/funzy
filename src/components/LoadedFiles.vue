@@ -3,18 +3,16 @@
     <b-row>
       <h2>Loaded Files</h2>
     </b-row>
-    <b-row>
-      <b-col cols="8">
-        <b-table
-          class="text-left"
-          :items="loadedFiles"
-          :fields="fields"
-          selectable
-          responsive
-          @row-selected="onRowSelected"
-        ></b-table>
-      </b-col>
-    </b-row>
+    <b-table
+      sticky-header
+      style="max-height: 500px;"
+      class="text-left"
+      :items="loadedFiles"
+      :fields="fields"
+      selectable
+      responsive
+      @row-selected="onRowSelected"
+    ></b-table>
   </div>
 </template>
 
@@ -31,11 +29,12 @@ export default {
       const files = [];
       const loadedFiles = this.$store.getters[CONSTANTS.GET_LOADED_FILES];
       const stagingFiles = this.$store.getters[CONSTANTS.GET_STAGING_FILES];
-      loadedFiles.forEach((file, index) => {
+      let count = 1;
+      loadedFiles.forEach(file => {
         const { name } = file;
         if (!stagingFiles.includes(name)) {
           files.push({
-            '#': index + 1,
+            '#': count++,
             name
           });
         }
