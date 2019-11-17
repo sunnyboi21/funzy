@@ -38,5 +38,8 @@ export default {
         state.stagingFiles.splice(fileIndex, 1);
       }
     });
+  },
+  [CONSTANTS.SET_LOADING](state, bool) {
+    state.loading = bool;
   }
 };

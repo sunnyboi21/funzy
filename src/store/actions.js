@@ -18,6 +18,7 @@ export default {
     commit(CONSTANTS.REMOVE_FILES_FROM_STAGING, fileNames);
   },
   [CONSTANTS.SEND_FILES]({ state, commit }, metadata) {
+    commit(CONSTANTS.SET_LOADING, true);
     const formData = new FormData();
     for (let i = 0; i < state.stagingFiles.length; i++) {
       const fileIndex = state.loadedFiles.findIndex(file => file.name === state.stagingFiles[i]);
@@ -35,9 +36,13 @@ export default {
         'Content-Type': 'application/json'
       },
       data: formData
-    }).then(result => {
-      commit(CONSTANTS.CLEAR_STAGING_FILES);
-      console.log(result);
-    });
+    })
+      .then(result => {
+        commit(CONSTANTS.CLEAR_STAGING_FILES);
+        console.log(result);
+      })
+      .finally(() => {
+        commit(CONSTANTS.SET_LOADING, false);
+      });
   }
 };

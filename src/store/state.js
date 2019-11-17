@@ -1,4 +1,5 @@
 export default {
   loadedFiles: [],
-  stagingFiles: []
+  stagingFiles: [],
+  loading: false
 };
