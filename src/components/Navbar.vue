@@ -20,7 +20,7 @@ export default {
   name: 'navbar',
   methods: {
     clearFiles() {
-      this.$store.dispatch(CONSTANTS.CLEAR_STAGING_FILES);
+      this.$store.dispatch(CONSTANTS.CLEAR_LOADED_FILES);
     }
   }
 };

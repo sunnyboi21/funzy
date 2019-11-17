@@ -42,14 +42,14 @@ export default {
         console.log('FILE UPLOADED');
         console.log(f);
         this.files.push(f);
-        this.$store.dispatch(CONSTANTS.ADD_FILE, f);
+        this.$store.dispatch(CONSTANTS.ADD_LOADED_FILE, f);
       });
     },
     addFiles(e) {
       if (e.target.files) {
         [...e.target.files].forEach(f => {
           this.files.push(f);
-          this.$store.dispatch(CONSTANTS.ADD_FILE, f);
+          this.$store.dispatch(CONSTANTS.ADD_LOADED_FILE, f);
         });
         e.target.value = '';
       }

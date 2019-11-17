@@ -1,6 +1,6 @@
 <template>
   <b-container>
-    <loading-screen v-if="loading"/>
+    <loading-screen v-if="loading" />
     <file-upload />
     <query-table />
   </b-container>

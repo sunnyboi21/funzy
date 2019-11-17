@@ -1,5 +1,7 @@
 export default {
   loadedFiles: [],
   stagingFiles: [],
-  loading: false
+  loading: false,
+  filesInQueue: [],
+  completedFiles: []
 };

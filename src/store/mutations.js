@@ -1,7 +1,7 @@
 import * as CONSTANTS from './constants';
 
 export default {
-  [CONSTANTS.ADD_FILE](state, file) {
+  [CONSTANTS.ADD_LOADED_FILE](state, file) {
     const fileName = file.name;
     const fileIndex = state.loadedFiles.findIndex(file => file.name === fileName);
     if (fileIndex > -1) {
@@ -10,6 +10,9 @@ export default {
       state.loadedFiles.push(file);
     }
   },
+  [CONSTANTS.ADD_FILE_TO_QUEUE](state, file) {
+    state.filesInQueue.push(file);
+  },
   [CONSTANTS.MOVE_FILES_TO_STAGING](state, fileNames) {
     fileNames.forEach(fileName => {
       if (!state.stagingFiles.includes(fileName)) {
@@ -17,7 +20,7 @@ export default {
       }
     });
   },
-  [CONSTANTS.CLEAR_STAGING_FILES](state) {
+  [CONSTANTS.CLEAR_LOADED_FILES](state) {
     state.stagingFiles = [];
     state.loadedFiles = [];
   },
@@ -31,8 +34,6 @@ export default {
   },
   [CONSTANTS.REMOVE_FILES_FROM_STAGING](state, fileNames) {
     fileNames.forEach(fileName => {
-      console.log(fileName);
-      console.log(state.stagingFiles);
       const fileIndex = state.stagingFiles.findIndex(fName => fName === fileName);
       if (fileIndex > -1) {
         state.stagingFiles.splice(fileIndex, 1);
