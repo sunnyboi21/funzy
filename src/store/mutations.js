@@ -48,6 +48,16 @@ export default {
       }
     });
   },
+  [CONSTANTS.CHECK_QUEUE](state, fileList) {
+    const filesInQueue = [];
+    state.filesInQueue.forEach(file => {
+      const fileIndex = fileList.findIndex(fName => fName === file.name);
+      if (fileIndex > -1) {
+        filesInQueue.push(file);
+      }
+    });
+    state.filesInQueue = filesInQueue;
+  },
   [CONSTANTS.SET_LOADING](state, bool) {
     state.loading = bool;
   }

@@ -30,7 +30,11 @@ export default {
   }),
   methods: {
     sendFiles() {
-      this.$store.dispatch(CONSTANTS.SEND_FILES, this.metadata);
+      this.$store.dispatch(CONSTANTS.SEND_FILES, this.metadata).then(() => {
+        this.metadata.objective = '';
+        this.metadata.batch = '';
+        this.metadata.device = '';
+      });
     }
   }
 };

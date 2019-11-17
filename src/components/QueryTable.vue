@@ -40,7 +40,6 @@ export default {
       this.selectedStagedFiles = fileNames;
     },
     moveToStaging() {
-      console.log('moveToStaging');
       if (this.selectedLoadedFiles.length) {
         this.$store.dispatch(CONSTANTS.MOVE_FILES_TO_STAGING, this.selectedLoadedFiles);
         this.selectedLoadedFiles = [];

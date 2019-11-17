@@ -2,7 +2,7 @@
   <div>
     <b-row class="is-flex">
       <h2>Files In Queue</h2>
-      <button @click="checkQueue">check queue</button>
+      <b-button :disabled="!queuedFiles.length" class="d-flex align-items-center m-2 p-1" @click="checkQueue"><svgicon name="material-design/refresh" width="25" height="25" /></b-button>
     </b-row>
     <b-table class="text-left" :items="queuedFiles" :fields="fields" responsive></b-table>
   </div>
@@ -10,6 +10,7 @@
 
 <script>
 import * as CONSTANTS from '@store/constants';
+import '@/svg-compiled-icons/material-design/refresh';
 
 export default {
   name: 'ResultTable',
@@ -36,3 +37,6 @@ export default {
   }
 };
 </script>
+
+<style>
+</style>

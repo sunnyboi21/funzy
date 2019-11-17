@@ -18,39 +18,39 @@ export default {
     commit(CONSTANTS.REMOVE_FILES_FROM_STAGING, fileNames);
   },
   [CONSTANTS.SEND_FILES]({ state, commit }, metadata) {
-    commit(CONSTANTS.SET_LOADING, true);
-    const formData = new FormData();
-    for (let i = 0; i < state.stagingFiles.length; i++) {
-      const fileIndex = state.loadedFiles.findIndex(file => file.name === state.stagingFiles[i]);
-      if (fileIndex > -1) {
-        formData.append('file2upload', state.loadedFiles[fileIndex]);
+    return new Promise(resolve => {
+      commit(CONSTANTS.SET_LOADING, true);
+      const formData = new FormData();
+      for (let i = 0; i < state.stagingFiles.length; i++) {
+        const fileIndex = state.loadedFiles.findIndex(file => file.name === state.stagingFiles[i]);
+        if (fileIndex > -1) {
+          formData.append('file2upload', state.loadedFiles[fileIndex]);
+        }
       }
-    }
-    Object.keys(metadata).forEach(key => {
-      formData.append(key, metadata[key]);
-    });
-    axios({
-      method: 'POST',
-      url: 'http://localhost:5000/sendfile',
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      },
-      data: formData
-    })
-      .then(result => {
-        commit(CONSTANTS.MOVE_STAGING_TO_QUEUE, {
-          timestamp: Date.now()
-        });
-        commit(CONSTANTS.REMOVE_STAGING_FILES);
-        console.log(result);
-      })
-      .finally(() => {
-        commit(CONSTANTS.MOVE_STAGING_TO_QUEUE, {
-          timestamp: Date.now()
-        });
-        commit(CONSTANTS.REMOVE_STAGING_FILES);
-        commit(CONSTANTS.SET_LOADING, false);
+      Object.keys(metadata).forEach(key => {
+        formData.append(key, metadata[key]);
       });
+      axios({
+        method: 'POST',
+        url: 'http://localhost:5000/sendfile',
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        },
+        data: formData
+      })
+        .then(result => {
+          commit(CONSTANTS.MOVE_STAGING_TO_QUEUE, {
+            timestamp: Date.now(),
+            ...metadata
+          });
+          commit(CONSTANTS.REMOVE_STAGING_FILES);
+          console.log(result);
+        })
+        .finally(() => {
+          commit(CONSTANTS.SET_LOADING, false);
+          resolve();
+        });
+    });
   },
   [CONSTANTS.CHECK_QUEUE]({ commit }) {
     axios({
